@@ -32,35 +32,73 @@ const dots = document.querySelector(".dots");
 
 //! ************ VARIABLE ************
 
-let index = 0;
+let currentSlide = 0;
+let allDots;
 
 //! ************ FUNCTIONS ************
 
-const updateDots = () => {
+function updateDots() {
   // TODO: ecrire le code pour mettre a jour les points
+ 
+  for (let i = 0; i < allDots.length; i++) {
+    allDots[i].classList.remove("dot_selected");
+  }
+
+  allDots[currentSlide].classList.add("dot_selected");
 }
 
-const updateSlider = () => {
+function updateSlider() {
   // TODO: ecrire le code pour mettre a jour le slider
+
+  image.setAttribute('src', URL + slides[currentSlide].image);
+  tagLine.innerHTML = slides[currentSlide].tagLine;
+  
+  updateDots();
+  
 }
 
-const addDots = () => {
-  // TODO: ecrire le code pour ajouter les points sur le slider
+function addDots() {
+  // TODO: ecrire le code pour ajouter les points
+  for (const slide of slides) {
+    const addDot = document.createElement("span");
+    addDot.classList = "dot";
+    dots.appendChild(addDot);
+
+    allDots = document.getElementsByClassName("dot");
+    document.querySelector(".dot").classList.add("dot_selected");
+  }
 }
 
-const slideLeft = () => {
+
+
+function slideLeft() {
   // TODO: ecrire le code pour faire glisser le slider vers la gauche
+  currentSlide = (currentSlide + LENGTH - 1) % LENGTH;
+  tagLine.innerHTML = slides[currentSlide].tagLine;
+
+  image.setAttribute('src', URL + slides[currentSlide].image);
+  updateDots();
+
 }
 
-const slideRight = () => {
+function slideRight() {
   // TODO: ecrire le code pour faire glisser le slider vers la droite
+  currentSlide = (currentSlide + 1) % LENGTH;
+  tagLine.innerHTML = slides[currentSlide].tagLine;
+
+  image.setAttribute('src', URL + slides[currentSlide].image);
+  updateDots();
+
 }
 
-const addListeners = () => {
+function addListeners() {
   // TODO: ecrire le code pour ajouter les listeners sur les boutons
+  arrowRight.addEventListener("click", slideRight);
+  arrowLeft.addEventListener("click", slideLeft);
 }
 
 //! ************ MAIN ************
 
 addDots();
 addListeners();
+updateSlider();
