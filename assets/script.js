@@ -24,8 +24,8 @@ const slides = [
 const LENGTH = slides.length;
 const URL = "./assets/images/slideshow/";
 
-const arrowLeft = document.querySelector(".arrow-left");
-const arrowRight = document.querySelector(".arrow-right");
+const arrowLeft = document.querySelector(".arrow_left");
+const arrowRight = document.querySelector(".arrow_right");
 const image = document.querySelector(".banner-img");
 const tagLine = document.querySelector("#banner p");
 const dots = document.querySelector(".dots");
@@ -37,28 +37,35 @@ let allDots;
 
 //! ************ FUNCTIONS ************
 
-function updateDots() {
-  // TODO: ecrire le code pour mettre a jour les points
- 
+/**
+ * Update the styling of dots to indicate the current slide.
+ */
+const updateDots = () => {
   for (let i = 0; i < allDots.length; i++) {
-    allDots[i].classList.remove("dot_selected");
+    allDots[i].classList.remove("dot_selected"); 
   }
 
   allDots[currentSlide].classList.add("dot_selected");
 }
 
-function updateSlider() {
-  // TODO: ecrire le code pour mettre a jour le slider
-
+/**
+ * Updates the slider by setting the image source and tag line based on the current slide.
+ * Also updates the dots to indicate the current slide.
+ */
+const updateSlider = () => {
   image.setAttribute('src', URL + slides[currentSlide].image);
   tagLine.innerHTML = slides[currentSlide].tagLine;
   
   updateDots();
-  
 }
 
-function addDots() {
-  // TODO: ecrire le code pour ajouter les points
+/**
+ * Adds dots to the dots container element based on the number of slides.
+ * Each dot is created as a span element with the class "dot". The dots are
+ * appended to the dots container element. After adding the dots, the function
+ * selects the first dot element and adds the class "dot_selected" to it.
+ */
+const addDots = () => {
   for (const slide of slides) {
     const addDot = document.createElement("span");
     addDot.classList = "dot";
@@ -69,30 +76,36 @@ function addDots() {
   }
 }
 
-
-
-function slideLeft() {
-  // TODO: ecrire le code pour faire glisser le slider vers la gauche
+/**
+ * Updates the current slide to the previous slide.
+ * Sets the tag line and image source based on the new slide.
+ * Calls the updateDots function to indicate the current slide.
+ */
+const slideLeft = () => {
   currentSlide = (currentSlide + LENGTH - 1) % LENGTH;
   tagLine.innerHTML = slides[currentSlide].tagLine;
 
   image.setAttribute('src', URL + slides[currentSlide].image);
   updateDots();
-
 }
 
-function slideRight() {
-  // TODO: ecrire le code pour faire glisser le slider vers la droite
+/**
+ * Updates the current slide to the next slide.
+ * Sets the tag line and image source based on the new slide.
+ * Calls the updateDots function to indicate the current slide.
+ */
+const slideRight = () => {
   currentSlide = (currentSlide + 1) % LENGTH;
   tagLine.innerHTML = slides[currentSlide].tagLine;
 
   image.setAttribute('src', URL + slides[currentSlide].image);
   updateDots();
-
 }
 
-function addListeners() {
-  // TODO: ecrire le code pour ajouter les listeners sur les boutons
+/**
+ * Adds event listeners to arrowRight and arrowLeft elements.
+ */
+const addListeners = () => {
   arrowRight.addEventListener("click", slideRight);
   arrowLeft.addEventListener("click", slideLeft);
 }
