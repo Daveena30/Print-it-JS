@@ -42,7 +42,7 @@ let allDots;
  */
 const updateDots = () => {
   for (let i = 0; i < allDots.length; i++) {
-    allDots[i].classList.remove("dot_selected"); 
+    allDots[i].classList.remove("dot_selected");
   }
 
   allDots[currentSlide].classList.add("dot_selected");
@@ -55,7 +55,7 @@ const updateDots = () => {
 const updateSlider = () => {
   image.setAttribute('src', URL + slides[currentSlide].image);
   tagLine.innerHTML = slides[currentSlide].tagLine;
-  
+
   updateDots();
 }
 
@@ -83,10 +83,8 @@ const addDots = () => {
  */
 const slideLeft = () => {
   currentSlide = (currentSlide + LENGTH - 1) % LENGTH;
-  tagLine.innerHTML = slides[currentSlide].tagLine;
 
-  image.setAttribute('src', URL + slides[currentSlide].image);
-  updateDots();
+  updateSlider();
 }
 
 /**
@@ -96,10 +94,8 @@ const slideLeft = () => {
  */
 const slideRight = () => {
   currentSlide = (currentSlide + 1) % LENGTH;
-  tagLine.innerHTML = slides[currentSlide].tagLine;
 
-  image.setAttribute('src', URL + slides[currentSlide].image);
-  updateDots();
+  updateSlider();
 }
 
 /**
@@ -109,6 +105,7 @@ const addListeners = () => {
   arrowRight.addEventListener("click", slideRight);
   arrowLeft.addEventListener("click", slideLeft);
 }
+
 
 //! ************ MAIN ************
 
